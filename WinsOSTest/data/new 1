@@ -1,0 +1,975 @@
+break kernel/exit.c:104
+    comm
+        start_output
+        echo ---in do_exit\n
+        echo ***pid\n
+        print current->pid
+        echo ***father pid\n
+        print current->father
+        stop_output
+    end
+break kernel/exit.c:144
+    comm
+        start_output
+        echo ---in sys_waitpid\n
+        echo ___pid\n
+        print current->pid
+        stop_output
+    end
+break kernel/system_call.s:82
+    comm
+        start_output
+        echo ---in system_call\n
+		echo ___pid\n
+		print current->pid
+        echo ***had push ss\n
+        echo ***had push esp\n
+        echo ***had push eflags\n
+        echo ***had push cs\n
+        echo ***had push eip\n
+        echo ***cur register ss\n
+        i r ss
+        echo ***cur register esp\n
+        i r esp
+        echo ***cur register cs\n
+        i r cs
+        echo ***cur register ds\n
+        i r ds
+        echo ***cur register es\n
+        i r es
+        echo ***cur register fs\n
+        i r fs
+        echo ***cur register eax\n
+        i r eax
+        echo ***cur register ebx\n
+        i r ebx
+        echo ***cur register ecx\n
+        i r ecx
+        echo ***cur register edx\n
+        i r edx
+        stop_output
+    end
+	
+break kernel/system_call.s:94
+    comm
+        start_output
+        echo ---in system_call\n
+		echo ___pid\n
+		print current->pid
+		echo ***push ds\n
+        echo ***push es\n
+        echo ***push fs\n
+        echo ***push edx\n
+        echo ***push ecx\n
+        echo ***push ebx\n
+		echo ***cur register ss\n
+		i r ss
+		echo ***cur register es\n
+		i r es
+		echo ***cur register fs\n
+		i r fs
+        stop_output
+    end
+
+break kernel/system_call.s:217
+    comm
+        start_output
+		echo ---in sys_fork\n
+		echo ___pid\n
+		print current->pid
+		echo ***cur register gs\n
+		i r gs
+		echo ***push gs\n
+		echo ***cur register esi\n 
+		i r esi
+		echo ***push esi\n
+		echo ***cur register edi\n 
+		i r edi
+		echo ***push edi\n
+		echo ***cur register ebp\n
+		i r ebp
+		echo ***push ebp\n
+		echo ***cur register eax\n
+		i r eax
+		echo ;;;eax to nr\n	
+		echo ***push eax
+        stop_output
+    end
+#break kernel/fork.c:75
+#    comm
+#        start_output
+#		echo ---in copy_process\n
+#		echo ***father pid\n
+#		print current->pid
+#		echo ***new pid\n
+#		print last_pid
+#		echo ***task number\n
+#		print nr
+#       stop_output
+#    end
+
+#free_page_table之前的寄存器内容
+break kernel/fork.c:79
+    comm
+        start_output
+		echo ---in copy_process\n
+		echo ***father pid\n
+		print current->pid
+		echo ***new pid\n
+		print last_pid
+		echo ***task number\n
+		print nr
+		echo ***before free page\n
+		echo ***cur register ecx\n
+		i r ecx
+		echo ***cur register edi\n
+		i r edi
+        stop_output
+    end
+
+break kernel/fork.c:80
+    comm
+        start_output
+		echo ---in copy_process\n
+		echo ___pid\n
+		print current->pid
+		echo ***after free page\n
+		echo ***cur register ecx\n
+		i r ecx
+		echo ***cur register edi\n
+		i r edi
+		echo ***eax:physical address\n
+		i r eax
+        stop_output
+    end
+
+break kernel/fork.c:86
+    comm
+        start_output
+		echo ---in copy_process\n
+		echo ___pid\n
+		print current->pid
+		echo ***copy task struct\n
+        stop_output
+    end
+
+break kernel/fork.c:116
+    comm
+        start_output
+		echo ---in copy_process\n
+		echo ___pid\n
+		print current->pid
+		echo ***new process state\n
+		print p->state
+		echo ***new process tss.esp0\n
+		print p->tss.esp0
+        stop_output
+    end	
+	
+break kernel/fork.c:117
+    comm
+        start_output
+		echo ---in copy_process\n
+		echo ___pid\n
+		print current->pid
+		echo ***new LDT index in GDT\n
+		print p->tss.ldt
+		echo ***new cs in LDT\n
+		print p->ldt[1]
+		echo ***new ds in LDT\n
+		print p->ldt[2]
+        stop_output
+    end
+break kernel/fork.c:54
+    comm
+        start_output
+		echo ---in copy_mem\n
+		echo ___pid\n
+		print current->pid
+		echo ***new_data_base\n
+		print new_data_base
+		echo ***old_data_base\n
+		print old_data_base
+        stop_output
+    end
+#n in GDT
+break kernel/fork.c:134
+    comm
+        start_output
+        echo ---in copy_process\n
+		echo ___pid\n
+		print current->pid
+        echo tss in GDT\n
+        print (nr<<1)+FIRST_TSS_ENTRY
+        echo ***tss address\n
+        print &(p->tss)
+        echo ldt in GDT\n
+        print (nr<<1)+FIRST_LDT_ENTRY
+        echo ***ldt address\n
+        print &(p->ldt)
+        stop_output
+    end
+break kernel/fork.c:137
+    comm
+        start_output
+		echo ---in copy_process\n
+		echo ___pid\n
+		print current->pid
+		echo ***new process state\n
+		print p->state
+        stop_output
+    end
+
+break kernel/system_call.s:219
+    comm
+        start_output
+		echo ---in sys_fork\n
+		echo ***cur register esp\n
+		i r esp
+        stop_output
+    end
+	
+break kernel/system_call.s:95
+    comm
+        start_output
+		echo ---in system_call\n
+		echo ___pid\n
+		print current->pid
+		echo ***eax as return\n
+		i r eax
+		echo ***push eax\n
+        stop_output
+    end
+
+break kernel/system_call.s:97
+    comm
+        start_output
+		echo ---in system_call\n
+		echo ___pid\n
+		print current->pid
+		echo ***cur state\n
+		print current->state
+		echo ***cur counter\n
+		print current->counter
+        stop_output
+    end
+
+break kernel/system_call.s:77
+    comm
+        start_output
+		echo ---in reschedule\n
+		echo ___pid\n
+		print current->pid
+		echo ***push ret_from_sys_call
+        stop_output
+    end
+
+break kernel/system_call.s:103
+    comm
+        start_output
+		echo ---in ret_from_sys_call\n
+		echo ___pid\n
+		print current->pid
+		echo ***task\n
+		print task
+		echo ***current\n
+		print current
+        stop_output
+    end
+
+break kernel/system_call.s:105
+    comm
+        start_output
+		echo ---in ret_from_sys_call\n
+		echo ___pid\n
+		print current->pid
+		echo ***not task0\n
+		echo ***was old code segment supervisor?\n
+        stop_output
+    end
+break kernel/system_call.s:109
+    comm
+        start_output
+		echo ---in ret_from_sys_call\n
+		echo ___pid\n
+		print current->pid
+		echo ***cur task is user\n
+        stop_output
+    end
+
+break kernel/system_call.s:111
+    comm
+        start_output
+		echo ---in ret_from_sys_call\n
+		echo ___pid\n
+		print current->pid
+		echo ***signal map\n
+		echo ***cur register ebx\n
+		i r ebx
+		echo ***block map\n
+		echo ***cur register ecx\n
+		i r ecx
+        stop_output
+    end
+
+#many operation:-----record
+break kernel/system_call.s:114
+    comm
+        start_output
+		echo ---in ret_from_sys_call\n
+		echo ___pid\n
+		print current->pid
+		echo ***not ecx\n
+		echo ***and ebx ecx\n
+		echo ***bsf ecx ecx\n
+		echo ***cur register ecx\n
+		i r ecx
+        stop_output
+    end
+break kernel/system_call.s:118
+    comm
+        start_output
+		echo ---in ret_from_sys_call\n
+		echo ___pid\n
+		print current->pid
+		echo ***btr ecx ebx\n
+		echo ***ebx to signal(eax)\n
+		echo ***inc ecx\n
+		echo ***signal value\n
+		echo ***cur register ecx
+		i r ecx
+		echo ***push ecx
+        stop_output
+    end
+break kernel/system_call.s:120
+    comm
+        start_output
+		echo ---in ret_from_sys_call\n
+		echo ___pid\n
+		print current->pid
+		echo ***pop eax\n
+        stop_output
+    end
+
+break kernel/system_call.s:121
+    comm
+        start_output
+        echo ---in ret_from_sys_call\n
+		echo ___pid\n
+		print current->pid
+        echo ***last pop
+        stop_output
+    end
+break kernel/signal.c:50
+    comm
+        start_output
+		echo ---in sys_signal\n
+		echo ___pid\n
+		print current->pid
+		echo ***signum\n
+		print signum
+        stop_output
+    end
+	
+break kernel/signal.c:59
+    comm
+        start_output
+		echo ---in sys_signal\n
+		echo ___pid\n
+		print current->pid
+		echo ***change sigation\n
+        stop_output
+    end
+	
+break kernel/signal.c:93
+    comm
+        start_output
+		echo ---in do_signal\n
+		echo ___pid\n
+		print current->pid
+        stop_output
+    end	
+	
+
+break kernel/signal.c:98
+    comm
+        start_output
+		echo ---in do_signal\n
+		echo ___pid\n
+		print current->pid
+		echo ***be SIGCHILD\n
+        stop_output
+    end
+break kernel/signal.c:104
+    comm
+        start_output
+		echo ---in do_signal\n
+		echo ___pid\n
+		print current->pid
+		echo ***sig old eip\n
+		print *(&eip)
+		echo ***sig old esp\n
+		print *(&esp)
+        stop_output
+    end
+break kernel/signal.c:107
+    comm
+        start_output
+		echo ---in do_signal\n
+		echo ___pid\n
+		print current->pid
+		echo ***sig new eip\n
+		print *(&eip)
+		echo ***sig new esp\n
+		print *(&esp)
+        stop_output
+    end
+break kernel/sched.c:111
+    comm
+        start_output
+		echo ---in schedule\n
+		echo ***process loop for alarm and signal\n
+		echo ***call stack\n
+		bt
+        stop_output
+    end
+	
+break kernel/sched.c:114
+    comm
+        start_output
+		echo ---in schedule\n
+		echo ***in loop\n
+		echo ***alarm out of time pid\n
+		print (*p)->pid
+        stop_output
+    end
+break kernel/sched.c:119
+    comm
+        start_output
+		echo ---in schedule\n
+		echo ***signal cause state change pid\n
+		print (*p)->pid
+        stop_output
+    end
+break kernel/sched.c:132
+    comm
+        start_output
+		echo ---in schedule\n
+		echo ***in loop2\n
+		echo ***loop state\n
+		print (*p)->state
+		echo ***loop pid\n
+		print (*p)->pid
+		echo ***loop counter\n
+		print (*p)->counter
+        stop_output
+    end
+break kernel/sched.c:138
+    comm
+        start_output
+		echo ---in schedule\n
+		echo ***in loop3\n
+		echo ***loop pid\n
+		print (*p)->pid
+		echo ***loop counter\n
+		print (*p)->counter
+		echo ***loop priority\n
+		print (*p)->priority
+		echo ***compute new counter\n
+        stop_output
+    end
+break kernel/sched.c:141
+    comm
+        start_output
+		echo ---in schedule\n
+		echo ***task switch to\n
+		print task[next]->pid
+        stop_output
+    end
+
+#get in to things about execve
+break kernel/system_call.s:202
+    comm
+        start_output
+		echo ---in sys_execve\n
+		echo ___pid\n
+		print current->pid
+		echo ***cur register eax\n
+		i r eax
+		echo ***push eax\n
+        stop_output
+    end
+
+break fs/exec.c:206
+    comm
+        start_output
+		echo ---in do_execve\n
+		echo ___pid\n
+		print current->pid
+		echo ***not regular file\n
+        stop_output
+    end
+break fs/exec.c:210
+    comm
+        start_output
+        echo ---in do_execve\n
+		echo ___pid\n
+		print current->pid
+        echo ***cur euid\n
+        print current->euid
+        echo ***cur egid\n
+        print current->egid  
+		echo ***imode\n
+		print i
+		echo ***inode euid\n
+		print inode->i_uid
+		echo ***inode egid\n
+		print inode->i_gid
+        stop_output
+    end
+
+break fs/exec.c:212
+    comm
+        start_output
+        echo ---in do_execve\n
+		echo ___pid\n
+		print current->pid
+        echo ***changed euid\n
+        print e_uid
+        echo ***changed egid\n
+        print e_gid
+        echo ***compare priority\n
+        stop_output
+    end
+
+#---------------copy strings esixt too many times
+#break fs/exec.c:146
+#    comm
+#        start_output
+#		echo ---in copy_strings\n
+#		echo ___pid\n
+#		print current->pid
+#		echo ***pag\n
+#		print pag
+#       stop_output
+#    end
+
+break fs/exec.c:128
+    comm
+        start_output
+		echo ---in copy_strings\n
+		echo ___pid\n
+		print current->pid
+		echo ***tmp:cur parameter address pointer\n
+		print tmp
+		echo ***len\n
+		print len
+		echo ***cur pointer\n
+		print p
+        stop_output
+    end
+	
+#error accur in copy strings
+break fs/exec.c:141
+    comm
+        start_output
+		echo ---in copy_strings\n
+		echo ___pid\n
+		print current->pid
+		echo ***error can not find page\n
+        stop_output
+    end
+	
+break fs/exec.c:142
+    comm
+        start_output
+		echo ---in copy_strings\n
+		echo ___pid\n
+		print current->pid
+		echo ***cur physical pointer\n
+		print pag
+        stop_output
+    end
+	
+break fs/exec.c:167
+    comm
+        start_output
+		echo ---in change_ldt\n
+		echo ___pid\n
+		print current->pid
+		echo ***data_limit\n
+		print data_limit
+		echo ***code_limit\n
+		print code_limit
+        stop_output
+    end
+break fs/exec.c:174
+    comm
+        start_output
+		echo ---in change_ldt\n
+		echo ___pid\n
+		print current->pid
+		echo ***data_base\n
+		print data_base
+        stop_output
+    end
+break fs/exec.c:313
+    comm
+        start_output
+		echo ---in do_execve\n
+		echo ___pid\n
+		print current->pid
+		echo ***parameter pointer\n
+		print p
+        stop_output
+    end
+break fs/exec.c:336
+    comm
+        start_output
+		echo ---in do_execve\n
+		echo ___pid\n
+		print current->pid
+		echo ***parameter space pointer change\n
+		print p
+        stop_output
+    end
+break fs/exec.c:52
+    comm
+        start_output
+		echo ---in create_tables\n
+		echo ___pid\n
+		print current->pid
+		echo ***sp\n
+		print sp
+		echo ***argc\n
+		print argc
+		echo ***envc\n
+		print envc
+        stop_output
+    end
+break fs/exec.c:347
+    comm
+        start_output
+		echo ---in do_execve\n
+		echo ___pid\n
+		print current->pid
+		echo ***new entry\n
+		print eip[0]
+		echo ***esp changeP\n
+        stop_output
+    end
+break kernel/sched.c:340
+	comm
+		start_output
+		echo ---in sys_alarm\n
+		echo ***seconds\n
+		print seconds
+		stop_output
+	end
+
+break kernel/sys.c:170
+	comm
+		start_output
+		echo ---in sys_brk\n
+		echo ___pid\n
+		print current->pid
+		echo ***end_data_seg\n
+		print end_data_seg
+		echo ***cur brk\n
+		print current->brk
+		stop_output
+	end
+	
+break kernel/sys.c:173
+	comm
+		start_output
+		echo ---in sys_brk\n
+		echo ___pid\n
+		print current->pid
+		echo ***cur brk\n
+		print current->brk
+		stop_output
+	end
+	
+	
+break fs/ioctl.c:35
+	comm
+		start_output
+		echo ---in sys_ioctl\n
+		echo ___pid\n
+		print current->pid
+		echo ***fd\n
+		print fd
+		stop_output
+	end
+
+break fs/ioctl.c:40
+	comm
+		start_output
+		echo ---in sys_ioctl\n
+		echo ___pid\n
+		print current->pid
+		echo ***mode and fd right\n
+		echo ***dev\n
+		print dev
+		stop_output
+	end
+
+break fs/ioctl.c:42
+	comm
+		start_output
+		echo ---in sys_ioctl\n
+		echo ___pid\n
+		print current->pid
+		echo ***dev out of range\n
+		stop_output
+	end
+break fs/ioctl.c:44
+	comm
+		start_output
+		echo ---in sys_ioctl\n
+		echo ___pid\n
+		print current->pid
+		echo ***dev table has no fun\n
+		stop_output
+	end
+
+break fs/open.c:195
+	comm
+		start_output
+		echo ---in sys_close\n
+		echo ___pid\n
+		print current->pid
+		echo ***fd\n
+		print fd
+		stop_output
+	end
+
+#the width part
+break fs/open.c:148
+	comm
+		start_output
+		echo ---in sys_open\n
+		echo ___pid\n
+		print current->pid
+		echo ***open filename\n
+		print *filename
+		echo ***fd\n
+		print fd
+		stop_output
+	end
+break fs/open.c:156
+	comm
+		start_output
+		echo ---in sys_open\n
+		echo ___pid\n
+		print current->pid
+		echo ***current->filp[fd]=f\n
+		stop_output
+	end
+#mark sys_write--get into
+break fs/read_write.c:85
+	comm
+		start_output
+		echo ---in sys_write\n
+		echo ___pid\n
+		print current->pid
+		stop_output
+	end
+
+break fs/read_write.c:100
+	comm
+		start_output
+		echo ---in sys_write\n
+		echo ___pid\n
+		print current->pid
+		echo ***call file write\n
+		stop_output
+	end
+
+break fs/read_write.c:89
+	comm
+		start_output
+		echo ---in sys_write\n
+		echo ___pid\n
+		print current->pid
+		echo ***fd or count fault\n
+		stop_output
+	end	
+	
+break fs/read_write.c:94
+	comm
+		start_output
+		echo ---in sys_write\n
+		echo ___pid\n
+		print current->pid
+		echo ***write pipe\n
+		stop_output
+	end	
+break fs/read_write.c:96
+	comm
+		start_output
+		echo ---in sys_write\n
+		echo ___pid\n
+		print current->pid
+		echo ***call char write\n
+		stop_output
+	end
+break fs/read_write.c:98
+	comm
+		start_output
+		echo ---in sys_write\n
+		echo ___pid\n
+		print current->pid
+		echo ***call block write\n
+		stop_output
+	end
+break init/main.c:160
+	comm
+		start_output
+		echo ---in printf\n
+		echo ___pid\n
+		print current->pid
+		echo ***call write\n
+		stop_output
+	end
+break kernel/chr_drv/console.c:447
+	comm
+		start_output
+		echo ---in con_write\n
+		echo ___pid\n
+		print current->pid
+		stop_output
+	end
+break kernel/exit.c:104
+	comm
+		start_output
+		echo ---in do_exit\n
+		echo ***die pid\n
+		print current->pid
+		echo ***father pid\n
+		print current->father
+		stop_output
+	end
+ 
+break kernel/exit.c:109
+	comm
+		start_output
+		echo ---in do_exit\n
+		echo ***in child loop:pid\n
+		print task[i]->pid
+		echo ***child state\n
+		print task[i]->state
+		stop_output
+	end
+break kernel/exit.c:131
+	comm
+		start_output
+		echo ---in do_exit\n
+		echo ***cur state\n
+		print current->state
+		echo ***exit code\n
+		print current->exit_code
+		stop_output
+	end
+break kernel/exit.c:28
+	comm
+		start_output
+		echo ---in release\n
+		echo ___pid\n
+		print current->pid
+		echo ***call free_page\n
+		echo ***release pid\n
+		print (*p)->pid
+		stop_output
+	end
+break kernel/blk_drv/hd.c:296
+	comm
+		start_output
+		echo ---in do_hd_request\n
+		echo ___pid\n
+		print current->pid
+		echo ***call stack\n
+		bt
+		stop_output
+	end
+	
+break kernel/blk_drv/hd.c:324
+	comm
+		start_output
+		echo ---in do_hd_request\n
+		echo ___pid\n
+		print current->pid
+		echo ***hd out recal_intr\n
+		stop_output
+	end
+	
+break kernel/blk_drv/hd.c:317
+	comm
+		start_output
+		echo ---in do_hd_request\n
+		echo ___pid\n
+		print current->pid
+		echo ***hd reset\n
+		stop_output
+	end
+
+break kernel/blk_drv/hd.c:329
+	comm
+		start_output
+		echo ---in do_hd_request\n
+		echo ___pid\n
+		print current->pid
+		echo ***hd out write_intr\n
+		stop_output
+	end
+
+break kernel/blk_drv/hd.c:338
+	comm
+		start_output
+		echo ---in do_hd_request\n
+		echo ___pid\n
+		print current->pid
+		echo ***hd out read_intr\n
+		stop_output
+	end	
+		
+break kernel/blk_drv/hd.c:186
+	comm
+		start_output
+		echo ---in hd_out\n
+		echo ___pid\n
+		print current->pid
+		echo ***drive\n
+		print drive
+		echo ***head\n
+		print head
+		stop_output
+	end
+break kernel/blk_drv/hd.c:271
+	comm
+		start_output
+		echo ---in write_intr\n
+		echo ___pid\n
+		print current->pid
+		echo ***sectors num to write\n
+		print CURRENT->nr_sectors
+		stop_output
+	end
+break kernel/blk_drv/hd.c:276
+	comm
+		start_output
+		echo ---in write_intr\n
+		echo ___pid\n
+		print current->pid
+		echo ***write success\n
+		stop_output
+	end
+break kernel/system_call.s:222
+	comm
+		start_output
+		echo ---in hd_interrupt\n
+		echo ___pid\n
+		print current->pid
+		stop_output
+	end

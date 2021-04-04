@@ -1,0 +1,273 @@
+#example:remember to delete
+
+#put breakppoint in get free page is stu[id
+#the register will be check before and after this function	
+#break mm/memory.c:72
+#   comm
+#        start_output
+#		echo ---in get_free_page\n
+#		echo ___pid\n
+#		print current->pid
+#		echo ***ecx:physical address\n
+#		i r ecx
+#       stop_output
+#    end
+	
+#break mm/memory.c:75
+#    comm
+#        start_output
+#		echo ---in get_free_page\n
+#		echo ___pid\n
+#		print current->pid
+#		echo ***edi:the end of physical address\n
+#		i r edi
+#		echo ***clear
+#        stop_output
+#    end
+
+#break mm/memory.c:78
+#    comm
+#        start_output
+#		echo ---in get_free_page\n
+#		echo ___pid\n
+#		print current->pid
+#		echo ***eax:physical address\n
+#		i r eax
+#        stop_output
+#    end
+
+	
+break mm/memory.c:163
+    comm
+        start_output
+		echo ---in copy_page_tables\n
+		echo ___pid\n
+		print current->pid
+		echo ***from_dir\n
+		print from_dir
+		echo ***to_dir\n
+		print to_dir
+		echo size\n
+		print size
+        stop_output
+    end
+break mm/memory.c:169
+    comm
+        start_output
+		echo ---in copy_page_tables\n
+		echo ___pid\n
+		print current->pid
+		echo ***before free page\n
+		echo ***cur register ecx\n
+		i r ecx
+		echo ***cur register edi\n
+		i r edi
+        stop_output
+    end
+	
+break mm/memory.c:171
+    comm
+        start_output
+		echo ---in copy_page_tables\n
+		echo ___pid\n
+		print current->pid
+		echo ***after free page\n
+		echo ***cur register ecx\n
+		i r ecx
+		echo ***cur register edi\n
+		i r edi
+		echo ***from_page_table\n
+		print from_page_table
+		echo ***to_page_table\n
+		print to_page_table
+        stop_output
+    end
+
+break mm/memory.c:267
+    comm
+        start_output
+		echo ---in write_verify\n
+		echo ___pid\n
+		print current->pid
+		echo ***call stack\n
+		bt
+		echo ***address\n
+		print address
+        stop_output
+    end
+break mm/memory.c:268
+    comm
+        start_output
+		echo ---in write_verify\n
+		echo ___pid\n
+		print current->pid
+		echo ***page_table_dir\n
+		print page
+        stop_output
+    end
+
+#break mm/memory.c:267
+#    comm
+#        start_output
+#		echo ---in write_verify\n
+#		echo ___pid\n
+#		print current->pid
+#		echo ***page pointer\n
+#		print page
+#       stop_output
+#    end
+break mm/memory.c:270
+    comm
+        start_output
+		echo ---in write_verify\n
+		echo ___pid\n
+		print current->pid
+		echo ***copy on write\n
+        stop_output
+    end
+
+break mm/memory.c:116
+    comm
+        start_output
+		echo ---in free_page_tables\n
+		echo ___pid\n
+		print current->pid
+		echo ***from\n
+		print from
+		echo ***size\n
+		print size
+		echo ***dir\n
+		print dir
+        stop_output
+    end
+break mm/page.s:26
+    comm
+        start_output
+		echo ---in page_fault\n
+		echo ___pid\n
+		print current->pid
+		echo ***fault address\n
+		echo ***cur register edx\n
+		i r edx
+		echo ***error code\n
+		echo ***cur register eax\n
+		i r eax
+        stop_output
+    end
+
+break mm/memory.c:252
+    comm
+        start_output
+		echo ---in do_wp_page\n
+		echo ___pid\n
+		print current->pid
+        stop_output
+    end
+	
+break mm/memory.c:253
+    comm
+        start_output
+		echo ---in do_wp_page\n
+		echo ___pid\n
+		print current->pid
+		echo ***in code space\n
+        stop_output
+    end
+
+break mm/memory.c:225
+    comm
+        start_output
+		echo ---in un_wp_page\n
+		echo ___pid\n
+		print current->pid
+		echo ***table entry\n
+		print table_entry
+        stop_output
+    end
+
+break mm/memory.c:226
+    comm
+        start_output
+		echo ---in un_wp_page\n
+		echo ___pid\n
+		print current->pid
+		echo ***physical page address\n
+		print old_page
+        stop_output
+    end
+	
+break mm/memory.c:231
+    comm
+        start_output
+		echo ---in un_wp_page\n
+		echo ___pid\n
+		print current->pid
+		echo ***need copy page\n
+        stop_output
+    end
+break mm/memory.c:233
+    comm
+        start_output
+		echo ---in un_wp_page\n
+		echo ___pid\n
+		print current->pid
+		echo ***new page\n
+		print new_page
+        stop_output
+    end
+break mm/memory.c:367
+    comm
+        start_output
+		echo ---in do_no_page\n
+		echo ___pid\n
+		print current->pid
+		echo ***address\n
+		print address
+        stop_output
+    end
+break mm/memory.c:385
+    comm
+        start_output
+		echo ---in do_no_page\n
+		echo ___pid\n
+		print current->pid
+		echo ***page\n
+		print page
+		echo ***block\n
+		print block
+        stop_output
+    end
+break mm/memory.c:387
+    comm
+        start_output
+		echo ---in do_no_page\n
+		echo ___pid\n
+		print current->pid
+		echo ***nr array\n
+		print nr[0]
+		print nr[1]
+		print nr[2]
+		print nr[3]
+        stop_output
+    end
+break mm/memory.c:210
+    comm
+        start_output
+		echo ---in put_page\n
+		echo ___pid\n
+		print current->pid
+		echo ***page_table\n
+		print page_table
+		echo ***page
+		print page
+        stop_output
+    end
+break mm/page.s:40
+    comm
+        start_output
+		echo ---in page_fault\n
+		echo ___pid\n
+		print current->pid
+		echo ***fault end\n
+        stop_output
+    end

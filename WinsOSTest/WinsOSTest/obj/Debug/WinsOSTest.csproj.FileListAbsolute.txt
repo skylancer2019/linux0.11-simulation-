@@ -1,0 +1,11 @@
+C:\Users\DZZ\source\repos\WinsOSTest\WinsOSTest\bin\Debug\WinsOSTest.exe.config
+C:\Users\DZZ\source\repos\WinsOSTest\WinsOSTest\bin\Debug\WinsOSTest.exe
+C:\Users\DZZ\source\repos\WinsOSTest\WinsOSTest\bin\Debug\WinsOSTest.pdb
+C:\Users\DZZ\source\repos\WinsOSTest\WinsOSTest\obj\Debug\WinsOSTest.csprojAssemblyReference.cache
+C:\Users\DZZ\source\repos\WinsOSTest\WinsOSTest\obj\Debug\WinsOSTest.Form1.resources
+C:\Users\DZZ\source\repos\WinsOSTest\WinsOSTest\obj\Debug\WinsOSTest.Properties.Resources.resources
+C:\Users\DZZ\source\repos\WinsOSTest\WinsOSTest\obj\Debug\WinsOSTest.csproj.GenerateResource.cache
+C:\Users\DZZ\source\repos\WinsOSTest\WinsOSTest\obj\Debug\WinsOSTest.csproj.CoreCompileInputs.cache
+C:\Users\DZZ\source\repos\WinsOSTest\WinsOSTest\obj\Debug\WinsOSTest.exe
+C:\Users\DZZ\source\repos\WinsOSTest\WinsOSTest\obj\Debug\WinsOSTest.pdb
+C:\Users\DZZ\source\repos\WinsOSTest\WinsOSTest\obj\Debug\WinsOSTest.Form2.resources

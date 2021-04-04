@@ -1,0 +1,8104 @@
+82		ja bad_sys_call
+---in system_call
+___pid
+$15409 = 4
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xffdfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x2
+***cur register ebx
+0x14
+***cur register ecx
+0x6
+***cur register edx
+0x5dd80
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$15410 = 4
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+217		call copy_process
+---in sys_fork
+___pid
+$15411 = 4
+***cur register gs
+0x17
+***push gs
+***cur register esi
+0x1
+***push esi
+***cur register edi
+0xffc
+***push edi
+***cur register ebp
+0x3fffde4
+***push ebp
+***cur register eax
+0x4
+;;;eax to nr
+
+79		p = (struct task_struct *) get_free_page();
+---in copy_process
+***father pid
+4
+***new pid
+6
+***task number
+4
+***before free page
+***cur register ecx
+0x4
+***cur register edi
+0xffc
+
+80		if (!p)
+---in copy_process
+___pid
+$15415 = 4
+***after free page
+***cur register ecx
+0x0
+***cur register edi
+0xffc
+***eax:physical address
+0xf9b000
+
+86		*p = *current;	/* NOTE! this doesn't copy the supervisor stack */
+---in copy_process
+___pid
+$15416 = 4
+***copy task struct
+
+116		p->tss.ldt = _LDT(nr);
+---in copy_process
+___pid
+$15417 = 4
+***new process state
+2
+***new process tss.esp0
+16367616
+
+117		p->tss.trace_bitmap = 0x80000000;
+---in copy_process
+___pid
+$15420 = 4
+***new LDT index in GDT
+104
+***new cs in LDT
+146864896}
+***new ds in LDT
+146862848}
+
+54		p->start_code = new_code_base;
+---in copy_mem
+___pid
+$15424 = 4
+***new_data_base
+268435456
+***old_data_base
+134217728
+
+163		for( ; size-->0 ; from_dir++,to_dir++) {
+---in copy_page_tables
+___pid
+$15427 = 4
+***from_dir
+<setup_idt+15>
+***to_dir
+<setup_gdt+95>
+size
+16
+***before free page
+***cur register ecx
+0xf9b2e2
+***cur register edi
+0xf9b2e7
+***after free page
+***cur register ecx
+0x0
+***cur register edi
+0xf9b2e7
+***from_page_table
+0xff3000
+***to_page_table
+0xf9a000
+***before free page
+***cur register ecx
+0x266e0
+***cur register edi
+0xf9b2e7
+***after free page
+***cur register ecx
+0x0
+***cur register edi
+0xf9b2e7
+***from_page_table
+0xffb000
+***to_page_table
+0xf99000
+
+134		set_tss_desc(gdt+(nr<<1)+FIRST_TSS_ENTRY,&(p->tss));
+---in copy_process
+___pid
+$15444 = 4
+tss in GDT
+12
+***tss address
+0xf9b2e8
+ldt in GDT
+13
+***ldt address
+0xf9b2d0
+
+137		return last_pid;
+---in copy_process
+___pid
+$15449 = 4
+***new process state
+0
+
+219	1:	ret
+---in sys_fork
+***cur register esp
+0xffdfd0
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$15451 = 4
+***cur state
+0
+***cur counter
+0
+
+77		pushl $ret_from_sys_call
+---in reschedule
+___pid
+$15454 = 4
+
+111		for(p = &LAST_TASK ; p > &FIRST_TASK ; --p)
+---in schedule
+***process loop for alarm and signal
+***in loop2
+***loop state
+0
+***loop pid
+6
+***loop counter
+15
+***in loop2
+***loop state
+1
+***loop pid
+3
+***loop counter
+24
+***in loop2
+***loop state
+0
+***loop pid
+4
+***loop counter
+0
+***in loop2
+***loop state
+1
+***loop pid
+1
+***loop counter
+27
+***task switch to
+6
+
+26		pushl %edx
+---in page_fault
+___pid
+$15468 = 6
+***fault address
+***cur register edx
+0x13fffde0
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$15469 = 6
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$15470 = 6
+***table entry
+0xf99ffc
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$15472 = 6
+***physical page address
+16408576
+
+231		if (!(new_page=get_free_page()))
+---in un_wp_page
+___pid
+$15474 = 6
+***need copy page
+
+233		if (old_page >= LOW_MEM)
+---in un_wp_page
+___pid
+$15475 = 6
+***new page
+16351232
+
+40		iret
+---in page_fault
+___pid
+$15477 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$15478 = 6
+***fault address
+***cur register edx
+0x100469d0
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$15479 = 6
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$15480 = 6
+***table entry
+0xf9a118
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$15482 = 6
+***physical page address
+16400384
+
+231		if (!(new_page=get_free_page()))
+---in un_wp_page
+___pid
+$15484 = 6
+***need copy page
+
+233		if (old_page >= LOW_MEM)
+---in un_wp_page
+___pid
+$15485 = 6
+***new page
+16347136
+
+40		iret
+---in page_fault
+___pid
+$15487 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$15488 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x30
+***cur register ebx
+0x3
+***cur register ecx
+0x0
+***cur register edx
+0x3d92c
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$15489 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+52		if (signum<1 || signum>32 || signum==SIGKILL)
+---in sys_signal
+___pid
+$15490 = 6
+***signum
+3
+***change sigation
+
+95		pushl %eax
+---in system_call
+___pid
+$15493 = 6
+***eax as return
+0x1
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$15494 = 6
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$15497 = 6
+***task
+0x22220 <init_task>
+  0x0 <startup_32> <repeats 59 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$15504 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x30
+***cur register ebx
+0xf
+***cur register ecx
+0x0
+***cur register edx
+0x3d92c
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$15505 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+52		if (signum<1 || signum>32 || signum==SIGKILL)
+---in sys_signal
+___pid
+$15506 = 6
+***signum
+15
+***change sigation
+
+95		pushl %eax
+---in system_call
+___pid
+$15509 = 6
+***eax as return
+0x1
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$15510 = 6
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$15513 = 6
+***task
+0x22220 <init_task>
+  0x0 <startup_32> <repeats 59 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$15520 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x30
+***cur register ebx
+0x14
+***cur register ecx
+0x0
+***cur register edx
+0x3d92c
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$15521 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+52		if (signum<1 || signum>32 || signum==SIGKILL)
+---in sys_signal
+___pid
+$15522 = 6
+***signum
+20
+***change sigation
+
+95		pushl %eax
+---in system_call
+___pid
+$15525 = 6
+***eax as return
+0x1
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$15526 = 6
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$15529 = 6
+***task
+0x22220 <init_task>
+  0x0 <startup_32> <repeats 59 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$15536 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x30
+***cur register ebx
+0x15
+***cur register ecx
+0x0
+***cur register edx
+0x3d92c
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$15537 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+52		if (signum<1 || signum>32 || signum==SIGKILL)
+---in sys_signal
+___pid
+$15538 = 6
+***signum
+21
+***change sigation
+
+95		pushl %eax
+---in system_call
+___pid
+$15541 = 6
+***eax as return
+0x1
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$15542 = 6
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$15545 = 6
+***task
+0x22220 <init_task>
+  0x0 <startup_32> <repeats 59 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$15552 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x30
+***cur register ebx
+0x16
+***cur register ecx
+0x0
+***cur register edx
+0x3d92c
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$15553 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+52		if (signum<1 || signum>32 || signum==SIGKILL)
+---in sys_signal
+___pid
+$15554 = 6
+***signum
+22
+***change sigation
+
+95		pushl %eax
+---in system_call
+___pid
+$15557 = 6
+***eax as return
+0x1
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$15558 = 6
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$15561 = 6
+***task
+0x22220 <init_task>
+  0x0 <startup_32> <repeats 59 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+26		pushl %edx
+---in page_fault
+___pid
+$15568 = 6
+***fault address
+***cur register edx
+0x1004522e
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$15569 = 6
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$15570 = 6
+***table entry
+0xf9a114
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$15572 = 6
+***physical page address
+16392192
+
+231		if (!(new_page=get_free_page()))
+---in un_wp_page
+___pid
+$15574 = 6
+***need copy page
+
+233		if (old_page >= LOW_MEM)
+---in un_wp_page
+___pid
+$15575 = 6
+***new page
+16343040
+
+40		iret
+---in page_fault
+___pid
+$15577 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$15578 = 6
+***fault address
+***cur register edx
+0x1005ddc0
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$15579 = 6
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$15580 = 6
+***table entry
+0xf9a174
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$15582 = 6
+***physical page address
+16420864
+
+231		if (!(new_page=get_free_page()))
+---in un_wp_page
+___pid
+$15584 = 6
+***need copy page
+
+233		if (old_page >= LOW_MEM)
+---in un_wp_page
+___pid
+$15585 = 6
+***new page
+16338944
+
+40		iret
+---in page_fault
+___pid
+$15587 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$15588 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x30
+***cur register ebx
+0x11
+***cur register ecx
+0x0
+***cur register edx
+0x3d92c
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$15589 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+52		if (signum<1 || signum>32 || signum==SIGKILL)
+---in sys_signal
+___pid
+$15590 = 6
+***signum
+17
+***change sigation
+
+95		pushl %eax
+---in system_call
+___pid
+$15593 = 6
+***eax as return
+0x0
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$15594 = 6
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$15597 = 6
+***task
+0x22220 <init_task>
+  0x0 <startup_32> <repeats 59 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$15604 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0xb
+***cur register ebx
+0x5ddec
+***cur register ecx
+0x5ddcc
+***cur register edx
+0x4b14c
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$15605 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+202		pushl %eax
+---in sys_execve
+___pid
+$15606 = 6
+***cur register eax
+0xf9bfec
+***push eax
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15607 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+buffer.c:278
+inode.c:305
+inode.c:290
+namei.c:324
+"",
+exec.c:199
+#9  0x00007a34 in sys_execve () at system_call.s:203
+#10 0x00f9bfec in ?? ()
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15609 = 6
+***drive
+0
+***head
+1
+
+210		e_uid = (i & S_ISUID) ? inode->i_uid : current->euid;
+---in do_execve
+___pid
+$15613 = 6
+***cur euid
+0
+***cur egid
+0
+***imode
+33225
+***inode euid
+0
+***inode egid
+0
+
+212		if (current->euid == inode->i_uid)
+---in do_execve
+___pid
+$15619 = 6
+***changed euid
+0
+***changed egid
+0
+***compare priority
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15622 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+buffer.c:278
+"",
+exec.c:221
+#6  0x00007a34 in sys_execve () at system_call.s:203
+#7  0x00f9bfec in ?? ()
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15624 = 6
+***drive
+0
+***head
+0
+
+132			while (len) {
+---in copy_strings
+___pid
+$15628 = 6
+***tmp:cur parameter address pointer
+0x4db74
+***len
+8
+***cur pointer
+131068
+***cur physical pointer
+0xf94000
+***tmp:cur parameter address pointer
+0x4da33
+***len
+7
+***cur pointer
+131060
+***tmp:cur parameter address pointer
+0x4d93a
+***len
+14
+***cur pointer
+131053
+***tmp:cur parameter address pointer
+0x4bbfa
+***len
+14
+***cur pointer
+131039
+***tmp:cur parameter address pointer
+0x4bb59
+***len
+13
+***cur pointer
+131025
+***tmp:cur parameter address pointer
+0x4e453
+***len
+71
+***cur pointer
+131012
+***tmp:cur parameter address pointer
+0x4d55b
+***len
+15
+***cur pointer
+130941
+***tmp:cur parameter address pointer
+0x4bbb9
+***len
+13
+***cur pointer
+130926
+***tmp:cur parameter address pointer
+0x4db34
+***len
+8
+***cur pointer
+130913
+***tmp:cur parameter address pointer
+0x4d4fa
+***len
+14
+***cur pointer
+130905
+***tmp:cur parameter address pointer
+0x5dd92
+***len
+6
+***cur pointer
+130891
+***cur physical pointer
+0xf94000
+
+313			if (!p) {
+---in do_execve
+___pid
+$15676 = 6
+***parameter pointer
+130885
+
+116		for ( ; size-->0 ; dir++) {
+---in free_page_tables
+___pid
+$15678 = 6
+***from
+268435456
+***size
+1
+***dir
+<setup_gdt+95>
+
+116		for ( ; size-->0 ; dir++) {
+---in free_page_tables
+___pid
+$15687 = 6
+***from
+268435456
+***size
+16
+***dir
+<setup_gdt+95>
+
+167		set_limit(current->ldt[2],data_limit);
+---in change_ldt
+___pid
+$15691 = 6
+***data_limit
+67108864
+***code_limit
+20480
+
+174				put_page(page[i],data_base);
+---in change_ldt
+___pid
+$15694 = 6
+***data_base
+335540224
+
+211			if (!(tmp=get_free_page()))
+---in put_page
+___pid
+$15696 = 6
+***page_table
+<setup_gdt+155>
+16334848
+
+336		p = (unsigned long) create_tables((char *)p,argc,envc);
+---in do_execve
+___pid
+$15699 = 6
+***parameter space pointer change
+67108677
+
+52		sp -= envc+1;
+---in create_tables
+___pid
+$15701 = 6
+***sp
+0x3ffff44
+***argc
+1
+***envc
+10
+
+347		eip[3] = p;			/* stack pointer */
+---in do_execve
+___pid
+$15705 = 6
+***new entry
+0
+***esp changeP
+
+95		pushl %eax
+---in system_call
+___pid
+$15707 = 6
+***eax as return
+0x0
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$15708 = 6
+***cur state
+0
+***cur counter
+14
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$15711 = 6
+***task
+0x22220 <init_task>
+  0x0 <startup_32> <repeats 59 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+26		pushl %edx
+---in page_fault
+___pid
+$15718 = 6
+***fault address
+***cur register edx
+0x10000000
+***error code
+***cur register eax
+0x4
+
+367	{
+---in do_no_page
+___pid
+$15719 = 6
+***address
+268435456
+
+385		for (i=0 ; i<4 ; block++,i++)
+---in do_no_page
+___pid
+$15721 = 6
+***page
+16355328
+***block
+1
+
+387		bread_page(page,current->executable->i_dev,nr);
+---in do_no_page
+___pid
+$15724 = 6
+***nr array
+4843
+4844
+4845
+4846
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15729 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15731 = 6
+***drive
+0
+***head
+14
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15735 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15737 = 6
+***drive
+0
+***head
+15
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15741 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15743 = 6
+***drive
+0
+***head
+15
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15747 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15749 = 6
+***drive
+0
+***head
+15
+
+211			if (!(tmp=get_free_page()))
+---in put_page
+___pid
+$15753 = 6
+***page_table
+<setup_gdt+95>
+16355328
+
+40		iret
+---in page_fault
+___pid
+$15756 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$15757 = 6
+***fault address
+***cur register edx
+0x10005000
+***error code
+***cur register eax
+0x6
+
+367	{
+---in do_no_page
+___pid
+$15758 = 6
+***address
+268455936
+
+385		for (i=0 ; i<4 ; block++,i++)
+---in do_no_page
+___pid
+$15760 = 6
+***page
+16347136
+***block
+21
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15763 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+buffer.c:278
+0)
+    at inode.c:98
+21)
+    at inode.c:142
+memory.c:386
+#8  0x0000b9cf in page_fault () at page.s:30
+#9  0x00000006 in startup_32 () at head.s:20
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15765 = 6
+***drive
+0
+***head
+15
+
+387		bread_page(page,current->executable->i_dev,nr);
+---in do_no_page
+___pid
+$15769 = 6
+***nr array
+4864
+4865
+4866
+4867
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15779 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000006 in startup_32 () at head.s:20
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15781 = 6
+***drive
+0
+***head
+0
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15785 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000006 in startup_32 () at head.s:20
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15787 = 6
+***drive
+0
+***head
+0
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15791 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000006 in startup_32 () at head.s:20
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15793 = 6
+***drive
+0
+***head
+0
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15797 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000006 in startup_32 () at head.s:20
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15799 = 6
+***drive
+0
+***head
+0
+
+40		iret
+---in page_fault
+___pid
+$15803 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$15804 = 6
+***fault address
+***cur register edx
+0x100031a8
+***error code
+***cur register eax
+0x4
+
+367	{
+---in do_no_page
+___pid
+$15805 = 6
+***address
+268448168
+
+385		for (i=0 ; i<4 ; block++,i++)
+---in do_no_page
+___pid
+$15807 = 6
+***page
+16343040
+***block
+13
+
+387		bread_page(page,current->executable->i_dev,nr);
+---in do_no_page
+___pid
+$15810 = 6
+***nr array
+4856
+4857
+4858
+4859
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15815 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15817 = 6
+***drive
+0
+***head
+15
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15821 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15823 = 6
+***drive
+0
+***head
+15
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15827 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15829 = 6
+***drive
+0
+***head
+15
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15833 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15835 = 6
+***drive
+0
+***head
+15
+
+40		iret
+---in page_fault
+___pid
+$15839 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$15840 = 6
+***fault address
+***cur register edx
+0x10004470
+***error code
+***cur register eax
+0x4
+
+367	{
+---in do_no_page
+___pid
+$15841 = 6
+***address
+268452976
+
+385		for (i=0 ; i<4 ; block++,i++)
+---in do_no_page
+___pid
+$15843 = 6
+***page
+16338944
+***block
+17
+
+387		bread_page(page,current->executable->i_dev,nr);
+---in do_no_page
+___pid
+$15846 = 6
+***nr array
+4860
+4861
+4862
+4863
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15851 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+Backtrace stopped: previous frame inner to this frame (corrupt stack?)
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15853 = 6
+***drive
+0
+***head
+15
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15857 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+Backtrace stopped: previous frame inner to this frame (corrupt stack?)
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15859 = 6
+***drive
+0
+***head
+15
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15863 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+Backtrace stopped: previous frame inner to this frame (corrupt stack?)
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15865 = 6
+***drive
+0
+***head
+15
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15869 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+Backtrace stopped: previous frame inner to this frame (corrupt stack?)
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15871 = 6
+***drive
+0
+***head
+0
+
+40		iret
+---in page_fault
+___pid
+$15875 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$15876 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x5
+***cur register ebx
+0x1b
+***cur register ecx
+0x442
+***cur register edx
+0x1b6
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$15877 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+148		if (fd>=NR_OPEN)
+---in sys_open
+___pid
+$15878 = 6
+***open filename
+'\000'
+***fd
+3
+
+156		(current->filp[fd]=f)->f_count++;
+---in sys_open
+___pid
+$15881 = 6
+f
+
+95		pushl %eax
+---in system_call
+___pid
+$15882 = 6
+***eax as return
+0x3
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$15883 = 6
+***cur state
+0
+***cur counter
+13
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$15886 = 6
+***task
+0x22220 <init_task>
+  0x0 <startup_32> <repeats 59 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+26		pushl %edx
+---in page_fault
+___pid
+$15893 = 6
+***fault address
+***cur register edx
+0x1000175c
+***error code
+***cur register eax
+0x4
+
+367	{
+---in do_no_page
+___pid
+$15894 = 6
+***address
+268441436
+
+385		for (i=0 ; i<4 ; block++,i++)
+---in do_no_page
+___pid
+$15896 = 6
+***page
+16330752
+***block
+5
+
+387		bread_page(page,current->executable->i_dev,nr);
+---in do_no_page
+___pid
+$15899 = 6
+***nr array
+4847
+4848
+4850
+4851
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15904 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15906 = 6
+***drive
+0
+***head
+15
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15910 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15912 = 6
+***drive
+0
+***head
+15
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15916 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15918 = 6
+***drive
+0
+***head
+15
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15922 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15924 = 6
+***drive
+0
+***head
+15
+
+40		iret
+---in page_fault
+___pid
+$15933 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$15934 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x2d
+***cur register ebx
+0x89a0
+***cur register ecx
+0x442
+***cur register edx
+0x3000
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$15935 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+170		if (end_data_seg >= current->end_code &&
+---in sys_brk
+___pid
+$15936 = 6
+***end_data_seg
+35232
+***cur brk
+24576
+
+173		return current->brk;
+---in sys_brk
+___pid
+$15939 = 6
+***cur brk
+35232
+
+95		pushl %eax
+---in system_call
+___pid
+$15941 = 6
+***eax as return
+0x89a0
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$15942 = 6
+***cur state
+0
+***cur counter
+12
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$15945 = 6
+***task
+0x22220 <init_task>
+  0x0 <startup_32> <repeats 59 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$15952 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x2d
+***cur register ebx
+0x9000
+***cur register ecx
+0x442
+***cur register edx
+0x660
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$15953 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+170		if (end_data_seg >= current->end_code &&
+---in sys_brk
+___pid
+$15954 = 6
+***end_data_seg
+36864
+***cur brk
+35232
+
+173		return current->brk;
+---in sys_brk
+___pid
+$15957 = 6
+***cur brk
+36864
+
+95		pushl %eax
+---in system_call
+___pid
+$15959 = 6
+***eax as return
+0x9000
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$15960 = 6
+***cur state
+0
+***cur counter
+12
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$15963 = 6
+***task
+0x22220 <init_task>
+  0x0 <startup_32> <repeats 59 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+26		pushl %edx
+---in page_fault
+___pid
+$15970 = 6
+***fault address
+***cur register edx
+0x10002138
+***error code
+***cur register eax
+0x4
+
+367	{
+---in do_no_page
+___pid
+$15971 = 6
+***address
+268443960
+
+385		for (i=0 ; i<4 ; block++,i++)
+---in do_no_page
+___pid
+$15973 = 6
+***page
+16326656
+***block
+9
+
+387		bread_page(page,current->executable->i_dev,nr);
+---in do_no_page
+___pid
+$15976 = 6
+***nr array
+4852
+4853
+4854
+4855
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15981 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15983 = 6
+***drive
+0
+***head
+15
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15987 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15989 = 6
+***drive
+0
+***head
+15
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15993 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$15995 = 6
+***drive
+0
+***head
+15
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$15999 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+0xf9bf9c)
+    at buffer.c:308
+memory.c:387
+#6  0x0000b9cf in page_fault () at page.s:30
+#7  0x00000004 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$16001 = 6
+***drive
+0
+***head
+15
+
+40		iret
+---in page_fault
+___pid
+$16005 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$16006 = 6
+***fault address
+***cur register edx
+0x10006000
+***error code
+***cur register eax
+0x6
+
+367	{
+---in do_no_page
+___pid
+$16007 = 6
+***address
+268460032
+
+40		iret
+---in page_fault
+___pid
+$16009 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$16010 = 6
+***fault address
+***cur register edx
+0x10007000
+***error code
+***cur register eax
+0x6
+
+367	{
+---in do_no_page
+___pid
+$16011 = 6
+***address
+268464128
+
+40		iret
+---in page_fault
+___pid
+$16013 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$16014 = 6
+***fault address
+***cur register edx
+0x10008000
+***error code
+***cur register eax
+0x6
+
+367	{
+---in do_no_page
+___pid
+$16015 = 6
+***address
+268468224
+
+40		iret
+---in page_fault
+___pid
+$16017 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16018 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x2d
+***cur register ebx
+0xa000
+***cur register ecx
+0x0
+***cur register edx
+0x1000
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16019 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+170		if (end_data_seg >= current->end_code &&
+---in sys_brk
+___pid
+$16020 = 6
+***end_data_seg
+40960
+***cur brk
+36864
+
+173		return current->brk;
+---in sys_brk
+___pid
+$16023 = 6
+***cur brk
+40960
+
+95		pushl %eax
+---in system_call
+___pid
+$16025 = 6
+***eax as return
+0xa000
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16026 = 6
+***cur state
+0
+***cur counter
+12
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16029 = 6
+***task
+0x22220 <init_task>
+  0x0 <startup_32> <repeats 59 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+26		pushl %edx
+---in page_fault
+___pid
+$16036 = 6
+***fault address
+***cur register edx
+0x10009040
+***error code
+***cur register eax
+0x6
+
+367	{
+---in do_no_page
+___pid
+$16037 = 6
+***address
+268472384
+
+40		iret
+---in page_fault
+___pid
+$16039 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16040 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x36
+***cur register ebx
+0x3
+***cur register ecx
+0x5401
+***cur register edx
+0x3fffe80
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16041 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+35		if (fd >= NR_OPEN || !(filp = current->filp[fd]))
+---in sys_ioctl
+___pid
+$16042 = 6
+***fd
+3
+
+95		pushl %eax
+---in system_call
+___pid
+$16044 = 6
+***eax as return
+0xffffffea
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16045 = 6
+***cur state
+0
+***cur counter
+12
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16048 = 6
+***task
+0x22220 <init_task>
+  0x0 <startup_32> <repeats 59 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16055 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x2d
+***cur register ebx
+0xb000
+***cur register ecx
+0x0
+***cur register edx
+0x1000
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16056 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+170		if (end_data_seg >= current->end_code &&
+---in sys_brk
+___pid
+$16057 = 6
+***end_data_seg
+45056
+***cur brk
+40960
+
+173		return current->brk;
+---in sys_brk
+___pid
+$16060 = 6
+***cur brk
+45056
+
+95		pushl %eax
+---in system_call
+___pid
+$16062 = 6
+***eax as return
+0xb000
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16063 = 6
+***cur state
+0
+***cur counter
+12
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16066 = 6
+***task
+0x22220 <init_task>
+  0x0 <startup_32> <repeats 59 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+26		pushl %edx
+---in page_fault
+___pid
+$16073 = 6
+***fault address
+***cur register edx
+0x1000a400
+***error code
+***cur register eax
+0x6
+
+367	{
+---in do_no_page
+___pid
+$16074 = 6
+***address
+268477440
+
+40		iret
+---in page_fault
+___pid
+$16076 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16077 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x2
+***cur register ebx
+0x5ddec
+***cur register ecx
+0xa
+***cur register edx
+0x3310
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16078 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+217		call copy_process
+---in sys_fork
+___pid
+$16079 = 6
+***cur register gs
+0x17
+***push gs
+***cur register esi
+0x1
+***push esi
+***cur register edi
+0xffc
+***push edi
+***cur register ebp
+0x3fffefc
+***push ebp
+***cur register eax
+0x5
+;;;eax to nr
+
+79		p = (struct task_struct *) get_free_page();
+---in copy_process
+***father pid
+6
+***new pid
+7
+***task number
+5
+***before free page
+***cur register ecx
+0x5
+***cur register edi
+0xffc
+
+80		if (!p)
+---in copy_process
+___pid
+$16083 = 6
+***after free page
+***cur register ecx
+0x0
+***cur register edi
+0xffc
+***eax:physical address
+0xf8c000
+
+86		*p = *current;	/* NOTE! this doesn't copy the supervisor stack */
+---in copy_process
+___pid
+$16084 = 6
+***copy task struct
+
+116		p->tss.ldt = _LDT(nr);
+---in copy_process
+___pid
+$16085 = 6
+***new process state
+2
+***new process tss.esp0
+16306176
+
+117		p->tss.trace_bitmap = 0x80000000;
+---in copy_process
+___pid
+$16088 = 6
+***new LDT index in GDT
+120
+***new cs in LDT
+281082624}
+***new ds in LDT
+281080576}
+
+54		p->start_code = new_code_base;
+---in copy_mem
+___pid
+$16092 = 6
+***new_data_base
+335544320
+***old_data_base
+268435456
+
+163		for( ; size-->0 ; from_dir++,to_dir++) {
+---in copy_page_tables
+___pid
+$16095 = 6
+***from_dir
+<setup_gdt+95>
+***to_dir
+<setup_gdt+159>
+size
+16
+***before free page
+***cur register ecx
+0xf8c2e2
+***cur register edi
+0xf8c2e7
+***after free page
+***cur register ecx
+0x0
+***cur register edi
+0xf8c2e7
+***from_page_table
+0xf98000
+***to_page_table
+0xf8b000
+***before free page
+***cur register ecx
+0x266e0
+***cur register edi
+0xf8c2e7
+***after free page
+***cur register ecx
+0x0
+***cur register edi
+0xf8c2e7
+***from_page_table
+0xf9a000
+***to_page_table
+0xf8a000
+
+134		set_tss_desc(gdt+(nr<<1)+FIRST_TSS_ENTRY,&(p->tss));
+---in copy_process
+___pid
+$16112 = 6
+***tss in GDT
+14
+***tss address
+0xf8c2e8
+***ldt in GDT
+15
+***ldt address
+0xf8c2d0
+
+137		return last_pid;
+---in copy_process
+___pid
+$16117 = 6
+***new process state
+0
+
+219	1:	ret
+---in sys_fork
+***cur register esp
+0xf9bfd0
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16119 = 6
+***cur state
+0
+***cur counter
+11
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16122 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+26		pushl %edx
+---in page_fault
+___pid
+$16129 = 6
+***fault address
+***cur register edx
+0x13fffef4
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$16130 = 6
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$16131 = 6
+***table entry
+0xf9affc
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$16133 = 6
+***physical page address
+16334848
+
+231		if (!(new_page=get_free_page()))
+---in un_wp_page
+___pid
+$16135 = 6
+***need copy page
+
+233		if (old_page >= LOW_MEM)
+---in un_wp_page
+___pid
+$16136 = 6
+***new page
+16289792
+
+40		iret
+---in page_fault
+___pid
+$16138 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$16139 = 6
+***fault address
+***cur register edx
+0x10005014
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$16140 = 6
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$16141 = 6
+***table entry
+0xf98014
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$16143 = 6
+***physical page address
+16347136
+
+231		if (!(new_page=get_free_page()))
+---in un_wp_page
+___pid
+$16145 = 6
+***need copy page
+
+233		if (old_page >= LOW_MEM)
+---in un_wp_page
+___pid
+$16146 = 6
+***new page
+16285696
+
+40		iret
+---in page_fault
+___pid
+$16148 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16149 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x36
+***cur register ebx
+0x1
+***cur register ecx
+0x5401
+***cur register edx
+0x3fffdc8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16150 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+35		if (fd >= NR_OPEN || !(filp = current->filp[fd]))
+---in sys_ioctl
+___pid
+$16151 = 6
+***fd
+1
+***mode and fd right
+***dev
+45834
+
+267		page &= 0xfffff000;
+---in write_verify
+___pid
+$16155 = 6
+***call stack
+memory.c:267
+fork.c:35
+0x3fffdc8)
+    at tty_ioctl.c:60
+tty_ioctl.c:127
+ioctl.c:45
+#5  0x0000793f in system_call () at system_call.s:94
+#6  0x00000001 in startup_32 () at head.s:19
+***address
+335540224
+
+95		pushl %eax
+---in system_call
+___pid
+$16157 = 6
+***eax as return
+0x0
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16158 = 6
+***cur state
+0
+***cur counter
+11
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16161 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16168 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16169 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16170 = 6
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16171 = 6
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16172 = 6
+
+95		pushl %eax
+---in system_call
+___pid
+$16173 = 6
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16174 = 6
+***cur state
+0
+***cur counter
+11
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16177 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+26		pushl %edx
+---in page_fault
+___pid
+$16184 = 6
+***fault address
+***cur register edx
+0x1000900c
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$16185 = 6
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$16186 = 6
+***table entry
+0xf98024
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$16188 = 6
+***physical page address
+16310272
+
+231		if (!(new_page=get_free_page()))
+---in un_wp_page
+___pid
+$16190 = 6
+***need copy page
+
+233		if (old_page >= LOW_MEM)
+---in un_wp_page
+___pid
+$16191 = 6
+***new page
+16281600
+
+40		iret
+---in page_fault
+___pid
+$16193 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$16194 = 6
+***fault address
+***cur register edx
+0x1000a000
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$16195 = 6
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$16196 = 6
+***table entry
+0xf98028
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$16198 = 6
+***physical page address
+16306176
+
+231		if (!(new_page=get_free_page()))
+---in un_wp_page
+___pid
+$16200 = 6
+***need copy page
+
+233		if (old_page >= LOW_MEM)
+---in un_wp_page
+___pid
+$16201 = 6
+***new page
+16277504
+
+40		iret
+---in page_fault
+___pid
+$16208 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16209 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16210 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16211 = 6
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16212 = 6
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16213 = 6
+
+95		pushl %eax
+---in system_call
+___pid
+$16214 = 6
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16215 = 6
+***cur state
+0
+***cur counter
+10
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16218 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16225 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16226 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16227 = 6
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16228 = 6
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16229 = 6
+
+95		pushl %eax
+---in system_call
+___pid
+$16230 = 6
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16231 = 6
+***cur state
+0
+***cur counter
+10
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16234 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16241 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16242 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16243 = 6
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16244 = 6
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16245 = 6
+
+95		pushl %eax
+---in system_call
+___pid
+$16246 = 6
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16247 = 6
+***cur state
+0
+***cur counter
+10
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16250 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16257 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16258 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16259 = 6
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16260 = 6
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16261 = 6
+
+95		pushl %eax
+---in system_call
+___pid
+$16262 = 6
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16263 = 6
+***cur state
+0
+***cur counter
+10
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16266 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16273 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16274 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16275 = 6
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16276 = 6
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16277 = 6
+
+95		pushl %eax
+---in system_call
+___pid
+$16278 = 6
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16279 = 6
+***cur state
+0
+***cur counter
+10
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16282 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16289 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16290 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16291 = 6
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16292 = 6
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16293 = 6
+
+95		pushl %eax
+---in system_call
+___pid
+$16294 = 6
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16295 = 6
+***cur state
+0
+***cur counter
+10
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16298 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16305 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16306 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16307 = 6
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16308 = 6
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16309 = 6
+
+95		pushl %eax
+---in system_call
+___pid
+$16310 = 6
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16311 = 6
+***cur state
+0
+***cur counter
+10
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16314 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16321 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16322 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16323 = 6
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16324 = 6
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16325 = 6
+
+95		pushl %eax
+---in system_call
+___pid
+$16326 = 6
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16327 = 6
+***cur state
+0
+***cur counter
+10
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16330 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16337 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16338 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16339 = 6
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16340 = 6
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16341 = 6
+
+95		pushl %eax
+---in system_call
+___pid
+$16342 = 6
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16343 = 6
+***cur state
+0
+***cur counter
+10
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16346 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16353 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16354 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16355 = 6
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16356 = 6
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16357 = 6
+
+95		pushl %eax
+---in system_call
+___pid
+$16358 = 6
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16359 = 6
+***cur state
+0
+***cur counter
+10
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16362 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16369 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x3
+***cur register ecx
+0xa000
+***cur register edx
+0xb
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16370 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16371 = 6
+
+100			return file_write(inode,file,buf,count);
+---in sys_write
+___pid
+$16372 = 6
+***call file write
+
+296		int i,r = 0;
+---in do_hd_request
+___pid
+$16373 = 6
+***call stack
+#0  do_hd_request () at hd.c:296
+<blk_dev+24>,
+ll_rw_blk.c:75
+ll_rw_blk.c:142
+ll_rw_blk.c:154
+buffer.c:278
+<inode_table+1624>,
+11)
+    at file_dev.c:67
+11)
+    at read_write.c:100
+#7  0x0000793f in system_call () at system_call.s:94
+#8  0x00000003 in startup_32 () at head.s:19
+***hd out read_intr
+
+186		if (drive>1 || head>15)
+---in hd_out
+___pid
+$16375 = 6
+***drive
+0
+***head
+12
+
+95		pushl %eax
+---in system_call
+___pid
+$16379 = 6
+***eax as return
+0xb
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16380 = 6
+***cur state
+0
+***cur counter
+10
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16383 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16390 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x6
+***cur register ebx
+0x3
+***cur register ecx
+0xb
+***cur register edx
+0x0
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16391 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+197		if (fd >= NR_OPEN)
+---in sys_close
+___pid
+$16392 = 6
+***fd
+3
+
+95		pushl %eax
+---in system_call
+___pid
+$16394 = 6
+***eax as return
+0x0
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16395 = 6
+***cur state
+0
+***cur counter
+10
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16398 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+26		pushl %edx
+---in page_fault
+___pid
+$16405 = 6
+***fault address
+***cur register edx
+0x1000603c
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$16406 = 6
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$16407 = 6
+***table entry
+0xf98018
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$16409 = 6
+***physical page address
+16322560
+
+231		if (!(new_page=get_free_page()))
+---in un_wp_page
+___pid
+$16411 = 6
+***need copy page
+
+233		if (old_page >= LOW_MEM)
+---in un_wp_page
+___pid
+$16412 = 6
+***new page
+16273408
+
+40		iret
+---in page_fault
+___pid
+$16414 = 6
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16415 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x0
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16416 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16417 = 6
+
+95		pushl %eax
+---in system_call
+___pid
+$16418 = 6
+***eax as return
+0x0
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16419 = 6
+***cur state
+0
+***cur counter
+10
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16422 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16429 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x6
+***cur register ebx
+0x1
+***cur register ecx
+0x0
+***cur register edx
+0x0
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16430 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+197		if (fd >= NR_OPEN)
+---in sys_close
+___pid
+$16431 = 6
+***fd
+1
+
+95		pushl %eax
+---in system_call
+___pid
+$16433 = 6
+***eax as return
+0x0
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16434 = 6
+***cur state
+0
+***cur counter
+10
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16437 = 6
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf9b000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16444 = 6
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf9bfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x1
+***cur register ebx
+0x0
+***cur register ecx
+0x0
+***cur register edx
+0x0
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16445 = 6
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+105		free_page_tables(get_base(current->ldt[1]),get_limit(0x0f));
+---in do_exit
+***pid
+6
+***father pid
+4
+
+116		for ( ; size-->0 ; dir++) {
+---in free_page_tables
+___pid
+$16448 = 6
+***from
+268435456
+***size
+1
+***dir
+<setup_gdt+95>
+
+116		for ( ; size-->0 ; dir++) {
+---in free_page_tables
+___pid
+$16452 = 6
+***from
+268435456
+***size
+16
+***dir
+<setup_gdt+95>
+
+109				task[i]->father = 1;
+---in do_exit
+***in child loop:pid
+7
+***child state
+0
+
+197		if (fd >= NR_OPEN)
+---in sys_close
+___pid
+$16463 = 6
+***fd
+0
+
+197		if (fd >= NR_OPEN)
+---in sys_close
+___pid
+$16465 = 6
+***fd
+2
+
+131		tell_father(current->father);
+---in do_exit
+***cur state
+3
+***exit code
+0
+
+111		for(p = &LAST_TASK ; p > &FIRST_TASK ; --p)
+---in schedule
+***process loop for alarm and signal
+***in loop2
+***loop state
+0
+***loop pid
+7
+***loop counter
+15
+***in loop2
+***loop state
+3
+***loop pid
+6
+***loop counter
+9
+***in loop2
+***loop state
+1
+***loop pid
+3
+***loop counter
+24
+***in loop2
+***loop state
+0
+***loop pid
+4
+***loop counter
+0
+***in loop2
+***loop state
+1
+***loop pid
+1
+***loop counter
+27
+***task switch to
+7
+
+26		pushl %edx
+---in page_fault
+___pid
+$16485 = 7
+***fault address
+***cur register edx
+0x17fffef4
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$16486 = 7
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$16487 = 7
+***table entry
+0xf8affc
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$16489 = 7
+***physical page address
+16334848
+
+40		iret
+---in page_fault
+___pid
+$16491 = 7
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$16492 = 7
+***fault address
+***cur register edx
+0x14005014
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$16493 = 7
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$16494 = 7
+***table entry
+0xf8b014
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$16496 = 7
+***physical page address
+16347136
+
+40		iret
+---in page_fault
+___pid
+$16498 = 7
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16499 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x36
+***cur register ebx
+0x1
+***cur register ecx
+0x5401
+***cur register edx
+0x3fffdc8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16500 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+35		if (fd >= NR_OPEN || !(filp = current->filp[fd]))
+---in sys_ioctl
+___pid
+$16501 = 7
+***fd
+1
+***mode and fd right
+***dev
+45834
+
+267		page &= 0xfffff000;
+---in write_verify
+___pid
+$16505 = 7
+***call stack
+memory.c:267
+fork.c:35
+0x3fffdc8)
+    at tty_ioctl.c:60
+tty_ioctl.c:127
+ioctl.c:45
+#5  0x0000793f in system_call () at system_call.s:94
+#6  0x00000001 in startup_32 () at head.s:19
+***address
+402649088
+
+95		pushl %eax
+---in system_call
+___pid
+$16507 = 7
+***eax as return
+0x0
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16508 = 7
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16511 = 7
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf8c000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16518 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16519 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16520 = 7
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16521 = 7
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16522 = 7
+
+95		pushl %eax
+---in system_call
+___pid
+$16523 = 7
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16524 = 7
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16527 = 7
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf8c000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+26		pushl %edx
+---in page_fault
+___pid
+$16534 = 7
+***fault address
+***cur register edx
+0x1400900c
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$16535 = 7
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$16536 = 7
+***table entry
+0xf8b024
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$16538 = 7
+***physical page address
+16310272
+
+40		iret
+---in page_fault
+___pid
+$16540 = 7
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$16541 = 7
+***fault address
+***cur register edx
+0x1400a000
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$16542 = 7
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$16543 = 7
+***table entry
+0xf8b028
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$16545 = 7
+***physical page address
+16306176
+
+40		iret
+---in page_fault
+___pid
+$16547 = 7
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16548 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16549 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16550 = 7
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16551 = 7
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16552 = 7
+
+95		pushl %eax
+---in system_call
+___pid
+$16553 = 7
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16554 = 7
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16557 = 7
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf8c000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16564 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16565 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16566 = 7
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16567 = 7
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16568 = 7
+
+95		pushl %eax
+---in system_call
+___pid
+$16569 = 7
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16570 = 7
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16573 = 7
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf8c000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16580 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16581 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16582 = 7
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16583 = 7
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16584 = 7
+
+95		pushl %eax
+---in system_call
+___pid
+$16585 = 7
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16586 = 7
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16589 = 7
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf8c000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16596 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16597 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16598 = 7
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16599 = 7
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16600 = 7
+
+95		pushl %eax
+---in system_call
+___pid
+$16601 = 7
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16602 = 7
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16605 = 7
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf8c000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16612 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16613 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16614 = 7
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16615 = 7
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16616 = 7
+
+95		pushl %eax
+---in system_call
+___pid
+$16617 = 7
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16618 = 7
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16621 = 7
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf8c000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16628 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16629 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16630 = 7
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16631 = 7
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16632 = 7
+
+95		pushl %eax
+---in system_call
+___pid
+$16633 = 7
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16634 = 7
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16637 = 7
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf8c000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16644 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16645 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16646 = 7
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16647 = 7
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16648 = 7
+
+95		pushl %eax
+---in system_call
+___pid
+$16649 = 7
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16650 = 7
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16653 = 7
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf8c000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16660 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16661 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16662 = 7
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16663 = 7
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16664 = 7
+
+95		pushl %eax
+---in system_call
+___pid
+$16665 = 7
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16666 = 7
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16669 = 7
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf8c000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16676 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16677 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16678 = 7
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16679 = 7
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16680 = 7
+
+95		pushl %eax
+---in system_call
+___pid
+$16681 = 7
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16682 = 7
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16685 = 7
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf8c000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16692 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x8
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16693 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16694 = 7
+
+96			return rw_char(WRITE,inode->i_zone[0],buf,count,&file->f_pos);
+---in sys_write
+___pid
+$16695 = 7
+***call char write
+
+450		nr = CHARS(tty->write_q);
+---in con_write
+___pid
+$16696 = 7
+
+95		pushl %eax
+---in system_call
+___pid
+$16697 = 7
+***eax as return
+0x8
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16698 = 7
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16701 = 7
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf8c000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16708 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x3
+***cur register ecx
+0xa000
+***cur register edx
+0xb
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16709 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16710 = 7
+
+100			return file_write(inode,file,buf,count);
+---in sys_write
+___pid
+$16711 = 7
+***call file write
+
+95		pushl %eax
+---in system_call
+___pid
+$16712 = 7
+***eax as return
+0xb
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16713 = 7
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16716 = 7
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf8c000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16723 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x6
+***cur register ebx
+0x3
+***cur register ecx
+0xb
+***cur register edx
+0x0
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16724 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+197		if (fd >= NR_OPEN)
+---in sys_close
+___pid
+$16725 = 7
+***fd
+3
+
+95		pushl %eax
+---in system_call
+___pid
+$16727 = 7
+***eax as return
+0x0
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16728 = 7
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16731 = 7
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf8c000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+26		pushl %edx
+---in page_fault
+___pid
+$16738 = 7
+***fault address
+***cur register edx
+0x1400603c
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$16739 = 7
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$16740 = 7
+***table entry
+0xf8b018
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$16742 = 7
+***physical page address
+16322560
+
+40		iret
+---in page_fault
+___pid
+$16744 = 7
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16745 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x4
+***cur register ebx
+0x1
+***cur register ecx
+0x54e0
+***cur register edx
+0x0
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16746 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+88		if (fd>=NR_OPEN || count <0 || !(file=current->filp[fd]))
+---in sys_write
+___pid
+$16747 = 7
+
+95		pushl %eax
+---in system_call
+___pid
+$16748 = 7
+***eax as return
+0x0
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16749 = 7
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16752 = 7
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf8c000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16759 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x6
+***cur register ebx
+0x1
+***cur register ecx
+0x0
+***cur register edx
+0x0
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16760 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+197		if (fd >= NR_OPEN)
+---in sys_close
+___pid
+$16761 = 7
+***fd
+1
+
+95		pushl %eax
+---in system_call
+___pid
+$16763 = 7
+***eax as return
+0x0
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16764 = 7
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16767 = 7
+***task
+0x22220 <init_task>
+  0xf8c000, 0x0 <startup_32> <repeats 58 times>}
+***current
+0xf8c000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16774 = 7
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xf8cfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x1
+***cur register ebx
+0x0
+***cur register ecx
+0x0
+***cur register edx
+0x0
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16775 = 7
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+105		free_page_tables(get_base(current->ldt[1]),get_limit(0x0f));
+---in do_exit
+***pid
+7
+***father pid
+1
+
+116		for ( ; size-->0 ; dir++) {
+---in free_page_tables
+___pid
+$16778 = 7
+***from
+335544320
+***size
+1
+***dir
+<setup_gdt+159>
+
+116		for ( ; size-->0 ; dir++) {
+---in free_page_tables
+___pid
+$16787 = 7
+***from
+335544320
+***size
+16
+***dir
+<setup_gdt+159>
+
+197		if (fd >= NR_OPEN)
+---in sys_close
+___pid
+$16791 = 7
+***fd
+0
+
+197		if (fd >= NR_OPEN)
+---in sys_close
+___pid
+$16793 = 7
+***fd
+2
+
+131		tell_father(current->father);
+---in do_exit
+***cur state
+3
+***exit code
+0
+
+111		for(p = &LAST_TASK ; p > &FIRST_TASK ; --p)
+---in schedule
+***process loop for alarm and signal
+***signal cause state change pid
+1
+***in loop2
+***loop state
+3
+***loop pid
+7
+***loop counter
+14
+***in loop2
+***loop state
+3
+***loop pid
+6
+***loop counter
+9
+***in loop2
+***loop state
+1
+***loop pid
+3
+***loop counter
+24
+***in loop2
+***loop state
+0
+***loop pid
+4
+***loop counter
+0
+***in loop2
+***loop state
+0
+***loop pid
+1
+***loop counter
+27
+***task switch to
+1
+
+28				free_page((long)p);
+---in release
+___pid
+$16814 = 1
+***call free_page
+***release pid
+7
+
+111		for(p = &LAST_TASK ; p > &FIRST_TASK ; --p)
+---in schedule
+***process loop for alarm and signal
+***in loop2
+***loop state
+3
+***loop pid
+6
+***loop counter
+9
+***in loop2
+***loop state
+1
+***loop pid
+3
+***loop counter
+24
+***in loop2
+***loop state
+0
+***loop pid
+4
+***loop counter
+0
+***in loop2
+***loop state
+0
+***loop pid
+1
+***loop counter
+27
+***task switch to
+1
+
+95		pushl %eax
+---in system_call
+___pid
+$16829 = 1
+***eax as return
+0x7
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16830 = 1
+***cur state
+0
+***cur counter
+27
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16833 = 1
+***task
+0x22220 <init_task>
+  0x0 <startup_32> <repeats 59 times>}
+***current
+0xfff000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16840 = 1
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xffffec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x7
+***cur register ebx
+0xffffffff
+***cur register ecx
+0x28ed0
+***cur register edx
+0x0
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16841 = 1
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+146		verify_area(stat_addr,4);
+---in sys_waitpid
+___pid
+$16842 = 1
+
+267		page &= 0xfffff000;
+---in write_verify
+___pid
+$16843 = 1
+***call stack
+memory.c:267
+-300)
+    at fork.c:35
+<user_stack+4016>,
+exit.c:146
+#3  0x0000793f in system_call () at system_call.s:94
+#4  0xffffffff in ?? ()
+Backtrace stopped: previous frame inner to this frame (corrupt stack?)
+***address
+67272704
+
+111		for(p = &LAST_TASK ; p > &FIRST_TASK ; --p)
+---in schedule
+***process loop for alarm and signal
+***in loop2
+***loop state
+3
+***loop pid
+6
+***loop counter
+9
+***in loop2
+***loop state
+1
+***loop pid
+3
+***loop counter
+24
+***in loop2
+***loop state
+0
+***loop pid
+4
+***loop counter
+0
+***in loop2
+***loop state
+1
+***loop pid
+1
+***loop counter
+27
+***in loop3
+***loop pid
+6
+***loop counter
+9
+***loop priority
+15
+***compute new counter
+***in loop3
+***loop pid
+3
+***loop counter
+24
+***loop priority
+15
+***compute new counter
+***in loop3
+***loop pid
+4
+***loop counter
+0
+***loop priority
+15
+***compute new counter
+***in loop3
+***loop pid
+1
+***loop counter
+27
+***loop priority
+15
+***compute new counter
+***in loop2
+***loop state
+3
+***loop pid
+6
+***loop counter
+19
+***in loop2
+***loop state
+1
+***loop pid
+3
+***loop counter
+27
+***in loop2
+***loop state
+0
+***loop pid
+4
+***loop counter
+15
+***in loop2
+***loop state
+1
+***loop pid
+1
+***loop counter
+28
+***task switch to
+4
+
+93		sa_handler = (unsigned long) sa->sa_handler;
+---in do_signal
+___pid
+$16890 = 4
+
+98				return;
+---in do_signal
+___pid
+$16891 = 4
+***be SIGCHILD
+
+26		pushl %edx
+---in page_fault
+___pid
+$16893 = 4
+***fault address
+***cur register edx
+0xbfffde0
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$16894 = 4
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$16895 = 4
+***table entry
+0xffbffc
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$16897 = 4
+***physical page address
+16408576
+
+40		iret
+---in page_fault
+___pid
+$16899 = 4
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$16900 = 4
+***fault address
+***cur register edx
+0x80413f4
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$16901 = 4
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$16902 = 4
+***table entry
+0xff3104
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$16904 = 4
+***physical page address
+16404480
+
+40		iret
+---in page_fault
+___pid
+$16906 = 4
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$16907 = 4
+***fault address
+***cur register edx
+0x805dde0
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$16908 = 4
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$16909 = 4
+***table entry
+0xff3174
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$16911 = 4
+***physical page address
+16420864
+
+40		iret
+---in page_fault
+___pid
+$16913 = 4
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$16914 = 4
+***fault address
+***cur register edx
+0x804522e
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$16915 = 4
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$16916 = 4
+***table entry
+0xff3114
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$16918 = 4
+***physical page address
+16392192
+
+40		iret
+---in page_fault
+___pid
+$16920 = 4
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$16921 = 4
+***fault address
+***cur register edx
+0x804d578
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$16922 = 4
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$16923 = 4
+***table entry
+0xff3134
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$16925 = 4
+***physical page address
+16547840
+
+40		iret
+---in page_fault
+___pid
+$16927 = 4
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+26		pushl %edx
+---in page_fault
+___pid
+$16928 = 4
+***fault address
+***cur register edx
+0x804b090
+***error code
+***cur register eax
+0x7
+
+255		un_wp_page((unsigned long *)
+---in do_wp_page
+___pid
+$16929 = 4
+
+225		old_page = 0xfffff000 & *table_entry;
+---in un_wp_page
+___pid
+$16930 = 4
+***table entry
+0xff312c
+
+226		if (old_page >= LOW_MEM && mem_map[MAP_NR(old_page)]==1) {
+---in un_wp_page
+___pid
+$16932 = 4
+***physical page address
+16601088
+
+40		iret
+---in page_fault
+___pid
+$16934 = 4
+***fault end
+***pop fs
+***pop es
+***pop ds
+***pop old eip
+***pop old cs
+***pop old eflags
+***pop old esp
+***pop old ss
+
+82		ja bad_sys_call
+---in system_call
+___pid
+$16935 = 4
+***had push ss
+***had push esp
+***had push eflags
+***had push cs
+***had push eip
+***cur register ss
+0x10
+***cur register esp
+0xffdfec
+***cur register cs
+0x8
+***cur register ds
+0x17
+***cur register es
+0x17
+***cur register fs
+0x17
+***cur register eax
+0x7
+***cur register ebx
+0x6
+***cur register ecx
+0x3fffe5c
+***cur register edx
+0x0
+
+94		call *sys_call_table(,%eax,4)
+---in system_call
+___pid
+$16936 = 4
+***push ds
+***push es
+***push fs
+***push edx
+***push ecx
+***push ebx
+***cur register ss
+0x10
+***cur register es
+0x10
+***cur register fs
+0x17
+
+146		verify_area(stat_addr,4);
+---in sys_waitpid
+___pid
+$16937 = 4
+
+267		page &= 0xfffff000;
+---in write_verify
+___pid
+$16938 = 4
+***call stack
+memory.c:267
+fork.c:35
+0)
+    at exit.c:146
+#3  0x0000793f in system_call () at system_call.s:94
+#4  0x00000006 in startup_32 () at head.s:20
+***address
+201322496
+
+28				free_page((long)p);
+---in release
+___pid
+$16940 = 4
+***call free_page
+***release pid
+6
+
+111		for(p = &LAST_TASK ; p > &FIRST_TASK ; --p)
+---in schedule
+***process loop for alarm and signal
+***in loop2
+***loop state
+1
+***loop pid
+3
+***loop counter
+27
+***in loop2
+***loop state
+0
+***loop pid
+4
+***loop counter
+15
+***in loop2
+***loop state
+1
+***loop pid
+1
+***loop counter
+28
+***task switch to
+4
+
+95		pushl %eax
+---in system_call
+___pid
+$16952 = 4
+***eax as return
+0x6
+***push eax
+
+97		cmpl $0,state(%eax)		# state
+---in system_call
+___pid
+$16953 = 4
+***cur state
+0
+***cur counter
+15
+
+103		cmpl task,%eax
+---in ret_from_sys_call
+___pid
+$16956 = 4
+***task
+0x22220 <init_task>
+  0x0 <startup_32> <repeats 60 times>}
+***current
+0xffd000
+***not task0
+***was old code segment supervisor?
+***cur task is user
+***signal map
+***cur register ebx
+0x0
+***block map
+***cur register ecx
+0x0
+***not ecx
+***and ebx ecx
+***bsf ecx ecx
+***cur register ecx
+0x0
