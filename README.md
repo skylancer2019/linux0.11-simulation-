@@ -10,7 +10,7 @@ simulate what linux0.11 would do about process and memory when a simple program 
 -汇编语言(50\%)等基本知识和方法
 
 ## 内核运行数据输出方法
-数据提取工具为gdb调试工具，在linux0.11源代码中打断点，从而提取出内核运行相关的信息。data文件夹中的ff.c文件是需要在linux0.11中运行的文件，断点用于监测该程序运行过程中linux内核所干的事情。采用虚拟机中提供的edit\_rootfs\_hd函数，将ff.c文件移动到usr/root文件夹下。在设置断点之前，用虚拟机提供的函数run\_gdb\_script\_hd\_console\_livedisplay将ff.c文件通过gcc编译成可执行文件fff。之后从data文件夹下找到new 1与new 2文件，这两个文件都是断点文件。将两个断点文件的内容输入gdb\_script\_beforeboot文件中。运行虚拟机中的函数run\_gdb\_script\_hd\_console\_redirect，在命令行输入./fff，待程序运行结束后退出linux0.11。此时虚拟机桌面上得到gdb\_output.txt文件，该文件中为提取出的初始数据。\\
+数据提取工具为gdb调试工具，在linux0.11源代码中打断点，从而提取出内核运行相关的信息。data文件夹中的ff.c文件是需要在linux0.11中运行的文件，断点用于监测该程序运行过程中linux内核所干的事情。采用虚拟机中提供的edit\_rootfs\_hd函数，将ff.c文件移动到usr/root文件夹下。在设置断点之前，用虚拟机提供的函数run\_gdb\_script\_hd\_console\_livedisplay将ff.c文件通过gcc编译成可执行文件fff。之后从data文件夹下找到new 1与new 2文件，这两个文件都是断点文件。将两个断点文件的内容输入gdb\_script\_beforeboot文件中。运行虚拟机中的函数run\_gdb\_script\_hd\_console\_redirect，在命令行输入./fff，待程序运行结束后退出linux0.11。此时虚拟机桌面上得到gdb\_output.txt文件，该文件中为提取出的初始数据。
 
 将gdb\_output.txt文件更名为debug.txt。在debug文件中找到进程4创建新进程的系统调用，在该系统调用前一行加上"-------------------------begin"字段。同样在debug文件中找到release最后一个进程(一般为进程6)的系统调用的结束处(一般为某个ret\_from\_sys\_call结束处)，空出一行后，加上"-----------------------end"字段。用于人工标记考虑的数据的起始和终止位置。
 
@@ -37,3 +37,6 @@ simulate what linux0.11 would do about process and memory when a simple program 
 
 ## 系统运行过程的具体描述
 过程主要展示了运行一个用户程序时的进程控制和调度的具体操作，以及与它们相关的内存变化。同时也会包含页异常处理，文件系统相关的内容和涉及的系统调用的展示。假设登陆Shell运行在进程4，则在命令行输入程序并开始运行时，会创建新的进程6，进程4在继续运行的过程中会产生写保护异常。进程4通过schedule切换到进程6，进程6发生写保护异常，进程6设置一些信号的句柄，进程6 execve开始真正执行用户程序。进程6发生缺页异常，之后打开文件，打开文件后又发生缺页异常。缺页异常与重设数据段末尾交替进行，后尝试对文件输入输出进行控制。进程6创建进程7，进程6发生写保护异常，之后尝试输入输出控制。输入输出设置成功后，进程6开始调用sys\_write向终端写入字符。第一次sys\_write会引发写保护异常，之后进行用户循环中要求的次数的sys\_write。在最后一次向终端写入字符后，sys\_write中调用file\_write,进行文件写入。进程6关闭打开的文件并exit,将进程7挂在进程1下，schedule到进程7。刚进入进程7时，进程7发生写保护异常，之后进行输入输出设置。输入输出设置之后进行sys\_write,具体过程与进程6时相同。进程7退出之后，schedule到进程1，进程1中彻底释放进程7，进程1调用sys\_waitpid,schedule到进程4，进程4收到SIGCHILD,发生写保护异常，释放进程6.
+
+## 其他内容
+见README.pdf
